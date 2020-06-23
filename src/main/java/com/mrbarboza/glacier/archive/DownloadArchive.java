@@ -39,7 +39,7 @@ public class DownloadArchive {
         try {
 
             JobParameters jobParameters = JobParameters.builder()
-                .type("inventory-retrieve")
+                .type("inventory-retrieval")
                 .build();
 
             InitiateJobRequest initiateJobRequest = InitiateJobRequest.builder()
