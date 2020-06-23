@@ -26,3 +26,7 @@ buildNumber.properties
 .factorypath
 .project
 .vscode/
+
+# Test Files
+test.csv
+config.properties
