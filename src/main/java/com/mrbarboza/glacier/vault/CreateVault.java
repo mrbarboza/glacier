@@ -8,6 +8,28 @@ import software.amazon.awssdk.services.glacier.model.GlacierException;
 
 public class CreateVault {
 
+    public static void main(String[] args) {
+
+        final String USAGE = "\n" +
+            "CreateVault - create an Amazon Glacier vault\n\n" +
+            "Usage: CreateVault <vaultName>\n\n" +
+            "Where:\n" +
+            "  vaultName - the name of the vault to create\n\n";
+
+        if (args.length < 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
+        String vaultName = args[0];
+
+        // Create a GlacierClient Object
+        GlacierClient glacierClient = GlacierClient.builder()
+            .region(Region.US_EAST_1)
+            .build();
+
+        createGlacierVault(glacierClient, vaultName);
+    }
+
     public static void createGlacierVault(GlacierClient glacierClient, String vaultName) {
 
         try {

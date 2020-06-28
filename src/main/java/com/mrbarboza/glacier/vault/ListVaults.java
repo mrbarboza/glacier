@@ -11,6 +11,16 @@ import java.util.List;
 
 public class ListVaults {
 
+    public static void main(String[] args) {
+
+        // Create a GlacierClient Object
+        GlacierClient glacierClient = GlacierClient.builder()
+            .region(Region.US_EAST_1)
+            .build();
+
+        listAllVault(glacierClient);
+    }
+
     public static void listAllVault(GlacierClient glacierClient) {
 
         boolean listComplete = false;
