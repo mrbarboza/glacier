@@ -1,5 +1,7 @@
 package com.mrbarboza.glacier.controllers;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mrbarboza.glacier.dtos.ArchiveDto;
 import com.mrbarboza.glacier.dtos.VaultDto;
@@ -171,10 +174,29 @@ public class GlacierController {
 	}
 	
     @PostMapping(value = "/uploadArchive")
-	public ResponseEntity<Response<ArchiveDto>> uploadArchive(@Valid @RequestBody ArchiveDto archiveDto,
-			BindingResult result){
+	//public ResponseEntity<Response<ArchiveDto>> uploadArchive(@Valid @RequestBody ArchiveDto archiveDto, BindingResult result){
+    public ResponseEntity<Response<ArchiveDto>> uploadArchive(@RequestParam("file") MultipartFile file, @RequestParam("vaultName") String vaultName){
+    	
+    	ArchiveDto archiveDto = new ArchiveDto();
     	
     	Response<ArchiveDto> response = new Response<ArchiveDto>();
+    	
+    	File tmpFile = new File(file.getOriginalFilename());
+    	
+    	try {
+    		
+        	FileOutputStream fos = new FileOutputStream(tmpFile);
+        	fos.write(file.getBytes());
+        	fos.close();
+			
+		} catch (Exception e) {
+			response.getErrors().add(e.getMessage());
+			return ResponseEntity.badRequest().body(response);
+		}    
+    	
+    	archiveDto.setArchiveFile(tmpFile);
+    	
+    	archiveDto.setVaultName(vaultName);
     	
     	// Get an SHA-256 tree hash value
         String checkValue = Utils.computeSHA256(archiveDto.getArchiveFile());
@@ -185,10 +207,12 @@ public class GlacierController {
                     .vaultName(archiveDto.getVaultName())
                     .checksum(checkValue)
                     .build();
-
-            UploadArchiveResponse archiveResponse = glacierClient.uploadArchive(archiveRequest, archiveDto.getPath());
+    		
+    		software.amazon.awssdk.core.sync.RequestBody requestBody = software.amazon.awssdk.core.sync.RequestBody.fromFile(tmpFile);
+			UploadArchiveResponse archiveResponse = glacierClient.uploadArchive(archiveRequest, requestBody );
+            //UploadArchiveResponse archiveResponse = glacierClient.uploadArchive(archiveRequest, archiveDto.getPath());
             
-            archiveDto.setAccountId(archiveResponse.archiveId());
+            archiveDto.setArchiveId(archiveResponse.archiveId());
             
             response.setData(archiveDto);
 			
