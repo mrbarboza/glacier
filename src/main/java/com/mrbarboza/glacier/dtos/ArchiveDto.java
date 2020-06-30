@@ -3,9 +3,6 @@ package com.mrbarboza.glacier.dtos;
 import java.io.File;
 import java.nio.file.Path;
 
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
-
 public class ArchiveDto {
 	
 	public ArchiveDto() {}
@@ -34,8 +31,6 @@ public class ArchiveDto {
 		this.location = location;
 	}
 
-	@NotEmpty(message = "Path não pode ser vazio.")
-	@Length(min = 3, max = 200, message = "Path deve conter entre 3 e 200 caracteres.")
 	public Path getPath() {
 		return path;
 	}
@@ -44,8 +39,6 @@ public class ArchiveDto {
 		this.path = path;
 	}
 
-	@NotEmpty(message = "VaultName não pode ser vazio.")
-	@Length(min = 3, max = 200, message = "VaultName deve conter entre 3 e 200 caracteres.")
 	public String getVaultName() {
 		return vaultName;
 	}
@@ -54,8 +47,6 @@ public class ArchiveDto {
 		this.vaultName = valtName;
 	}
 
-	@NotEmpty(message = "ArchiveFile não pode ser vazio.")
-	@Length(min = 3, max = 200, message = "ArchiveFile deve conter entre 3 e 200 caracteres.")
 	public File getArchiveFile() {
 		return archiveFile;
 	}
@@ -64,8 +55,6 @@ public class ArchiveDto {
 		this.archiveFile = archiveFile;
 	}
 
-	@NotEmpty(message = "AccountId não pode ser vazio.")
-	@Length(min = 3, max = 200, message = "ArchiveFile deve conter entre 3 e 200 caracteres.")
 	public String getAccountId() {
 		return accountId;
 	}
@@ -74,8 +63,6 @@ public class ArchiveDto {
 		this.accountId = accountId;
 	}
 
-	@NotEmpty(message = "AccountId não pode ser vazio.")
-	@Length(min = 3, max = 200, message = "ArchiveFile deve conter entre 3 e 200 caracteres.")	
 	public String getArchiveId() {
 		return archiveId;
 	}

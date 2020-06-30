@@ -1,7 +1,5 @@
 package com.mrbarboza.glacier.dtos;
 
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 
 public class VaultDto {
 	
@@ -73,8 +71,6 @@ public class VaultDto {
 		this.location = location;
 	}
 
-	@NotEmpty(message = "Nome não pode ser vazio.")
-	@Length(min = 3, max = 200, message = "Nome deve conter entre 3 e 200 caracteres.")
 	public String getName() {
 		return name;
 	}

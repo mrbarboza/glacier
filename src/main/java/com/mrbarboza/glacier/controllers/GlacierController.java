@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +29,7 @@ public class GlacierController {
         .build();
 	
     @PostMapping(value = "/createVault")
-	public ResponseEntity<Response<VaultDto>> createVault(@Valid @RequestBody VaultDto vaultDto,
+	public ResponseEntity<Response<VaultDto>> createVault(@RequestBody VaultDto vaultDto,
 			BindingResult result) {
 		
 		Response<VaultDto> response = new Response<VaultDto>();
@@ -58,7 +56,7 @@ public class GlacierController {
 	}
 	
     @PostMapping(value = "/deleteVault")
-	public ResponseEntity<Response<VaultDto>> deleteVault(@Valid @RequestBody VaultDto vaultDto,
+	public ResponseEntity<Response<VaultDto>> deleteVault(@RequestBody VaultDto vaultDto,
 			BindingResult result) {
 		
     	Response<VaultDto> response = new Response<VaultDto>();
@@ -83,7 +81,7 @@ public class GlacierController {
 	}
 	
     @GetMapping(value = "/describeVault")
-	public ResponseEntity<Response<VaultDto>> describeVault(@Valid @RequestBody VaultDto vaultDto,
+	public ResponseEntity<Response<VaultDto>> describeVault(@RequestBody VaultDto vaultDto,
 			BindingResult result) {
 		
     	Response<VaultDto> response = new Response<VaultDto>();
@@ -226,7 +224,7 @@ public class GlacierController {
 	}
 	
     @PostMapping(value = "/downloadArchive")
-	public ResponseEntity<Response<ArchiveDto>> downloadArchive(@Valid @RequestBody ArchiveDto archiveDto,
+	public ResponseEntity<Response<ArchiveDto>> downloadArchive(@RequestBody ArchiveDto archiveDto,
 			BindingResult result) {
     	
     	Response<ArchiveDto> response = new Response<ArchiveDto>();
@@ -258,7 +256,7 @@ public class GlacierController {
 	}
 	
     @PostMapping(value = "/deleteArchive")
-	public ResponseEntity<Response<ArchiveDto>> deleteArchive(@Valid @RequestBody ArchiveDto archiveDto,
+	public ResponseEntity<Response<ArchiveDto>> deleteArchive(@RequestBody ArchiveDto archiveDto,
 			BindingResult result) {
     	
     	Response<ArchiveDto> response = new Response<ArchiveDto>();
